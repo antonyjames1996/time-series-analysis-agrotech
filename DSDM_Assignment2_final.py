@@ -9,7 +9,7 @@ import numpy as np
 
 import seaborn as sns
 import matplotlib.pyplot as plt
-get_ipython().run_line_magic('matplotlib', 'inline')
+# get_ipython().run_line_magic('matplotlib', 'inline')
 
 from sklearn.neighbors import LocalOutlierFactor
 from sklearn.model_selection import train_test_split
@@ -22,7 +22,7 @@ from sklearn.svm import LinearSVR
 from sklearn.metrics import r2_score
 from sklearn.ensemble import StackingRegressor
 from sklearn.feature_selection import RFECV
-from xgboost.sklearn import XGBClassifier
+# from xgboost.sklearn import XGBClassifier
 
 data = pd.ExcelFile('Data.xlsx')
 plants = pd.read_excel(data, 'plants')
@@ -244,8 +244,8 @@ plant_data = plant[['batch_number', 'class',
                     'diameter_ratio', 'head_weight', 'radial_diameter', 'polar_diameter']]
 
 plant_data.hist(figsize = (16,10))
-plt.savefig("plant_hist.pdf", format="pdf", bbox_inches="tight")
-plt.show()
+# plt.savefig("plant_hist.pdf", format="pdf", bbox_inches="tight")
+# plt.show()
 
 
 # In[98]:
@@ -254,17 +254,17 @@ plt.show()
 ### plant_data heatmap
 fig = plt.figure(figsize = (10,10))
 sns.heatmap(plant_data.corr(), vmax = 0.6, square = True)
-plt.savefig("plant_heatmap.pdf", format="pdf", bbox_inches="tight")
-plt.show()
+# plt.savefig("plant_heatmap.pdf", format="pdf", bbox_inches="tight")
+# plt.show()
 
 
 # In[106]:
 
 
 sns.jointplot(x = "radial_diameter",y = "polar_diameter", data=plant, hue="class");
-plt.savefig("radial_polar.pdf", format="pdf", bbox_inches="tight")
-plt.suptitle("Joint plot between Fresh Weight and Head Weight", y = 0)
-plt.show()
+# plt.savefig("radial_polar.pdf", format="pdf", bbox_inches="tight")
+# plt.suptitle("Joint plot between Fresh Weight and Head Weight", y = 0)
+# plt.show()
 
 
 # In[107]:
@@ -273,8 +273,8 @@ plt.show()
 sns.jointplot(x = "fresh_weight", y = "head_weight", data=plant
               , hue="class");
 plt.suptitle("Joint plot between Fresh Weight and Head Weight", y = 0)
-plt.savefig("fresh_weight_head_weight.pdf", format="pdf", bbox_inches="tight")
-plt.show()
+# plt.savefig("fresh_weight_head_weight.pdf", format="pdf", bbox_inches="tight")
+# plt.show()
 
 
 # In[108]:
@@ -284,9 +284,9 @@ sns.scatterplot(data = plant, x="check_time", y="density", hue="class")
 plt.title('Scatterplot between check_time - density',loc='center' ,y=-0.3)
 plt.xlabel('check_time')
 plt.ylabel('density')
-plt.savefig("check_time_density.pdf", format="pdf", bbox_inches="tight")
+# plt.savefig("check_time_density.pdf", format="pdf", bbox_inches="tight")
 
-plt.show()
+# plt.show()
 
 
 # In[109]:
@@ -295,8 +295,8 @@ plt.show()
 sns.pairplot(plant[['batch_number', 'class', 'flight_time' ,
                      'head_weight', 'radial_diameter', 'polar_diameter']])  
 
-plt.savefig("plant_pairplot.pdf", format="pdf", bbox_inches="tight")
-plt.show()
+# plt.savefig("plant_pairplot.pdf", format="pdf", bbox_inches="tight")
+# plt.show()
 
 
 # In[110]:
@@ -305,9 +305,9 @@ plt.show()
 ### weather data analysis
 
 weather.hist(figsize = (16,10))
-plt.savefig("weather_histplot.pdf", format="pdf", bbox_inches="tight")
+# plt.savefig("weather_histplot.pdf", format="pdf", bbox_inches="tight")
 
-plt.show()
+# plt.show()
 
 
 # In[111]:
@@ -315,8 +315,8 @@ plt.show()
 
 fig = plt.figure(figsize = (10,10))
 sns.heatmap(weather.corr(), vmax = .8, square = True)
-plt.savefig("weather_heatmap.pdf", format="pdf", bbox_inches="tight")
-plt.show()
+# plt.savefig("weather_heatmap.pdf", format="pdf", bbox_inches="tight")
+# plt.show()
 
 
 # In[37]:
@@ -377,7 +377,7 @@ X_weather_train, X_weather_test, y_weather_train, y_weather_test = train_test_sp
 model = LinearRegression()
 model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
-print('model score:' ,r2_score(y_test, y_pred, multioutput='variance_weighted'))
+print('Linear Regression model score:' ,r2_score(y_test, y_pred, multioutput='variance_weighted'))
 
 
 # In[129]:
@@ -387,7 +387,7 @@ print('model score:' ,r2_score(y_test, y_pred, multioutput='variance_weighted'))
 model = LinearRegression()
 model.fit(X_plant_train, y_plant_train)
 y_pred = model.predict(X_plant_test)
-print('model score:' ,r2_score(y_plant_test, y_pred, multioutput='variance_weighted'))
+print('Linear Regression model score with plants:' ,r2_score(y_plant_test, y_pred, multioutput='variance_weighted'))
 
 
 # In[130]:
@@ -397,7 +397,7 @@ print('model score:' ,r2_score(y_plant_test, y_pred, multioutput='variance_weigh
 model = LinearRegression()
 model.fit(X_weather_train, y_weather_train)
 y_pred = model.predict(X_weather_test)
-print('model score:' ,r2_score(y_weather_test, y_pred, multioutput='variance_weighted'))
+print('Linear Regression model score with weather:' ,r2_score(y_weather_test, y_pred, multioutput='variance_weighted'))
 
 
 # In[135]:
@@ -407,7 +407,7 @@ print('model score:' ,r2_score(y_weather_test, y_pred, multioutput='variance_wei
 model = RandomForestRegressor()
 model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
-print('model score:' ,r2_score(y_test, y_pred, multioutput='variance_weighted'))
+print('Random Forest model score:' ,r2_score(y_test, y_pred, multioutput='variance_weighted'))
 
 
 # In[137]:
@@ -415,8 +415,8 @@ print('model score:' ,r2_score(y_test, y_pred, multioutput='variance_weighted'))
 
 feat_importances = pd.Series(model.feature_importances_, index=plant.iloc[:, 3:-5].columns)
 feat_importances.nlargest(10).plot(kind='barh')
-plt.savefig("feature_imp_all.pdf", format="pdf", bbox_inches="tight")
-plt.show()
+# plt.savefig("feature_imp_all.pdf", format="pdf", bbox_inches="tight")
+# plt.show()
 
 
 # In[138]:
@@ -426,7 +426,7 @@ plt.show()
 model = RandomForestRegressor()
 model.fit(X_plant_train, y_plant_train)
 y_pred = model.predict(X_plant_test)
-print('model score:' ,r2_score(y_plant_test, y_pred, multioutput='variance_weighted'))
+print('Random Forest model score with plants:' ,r2_score(y_plant_test, y_pred, multioutput='variance_weighted'))
 
 
 # In[140]:
@@ -434,8 +434,8 @@ print('model score:' ,r2_score(y_plant_test, y_pred, multioutput='variance_weigh
 
 feat_importances = pd.Series(model.feature_importances_, index=plant.iloc[:, 3:11].columns)
 feat_importances.nlargest(10).plot(kind='barh')
-plt.savefig("feature_imp_plant.pdf", format="pdf", bbox_inches="tight")
-plt.show()
+# plt.savefig("feature_imp_plant.pdf", format="pdf", bbox_inches="tight")
+# plt.show()
 
 
 # In[141]:
@@ -445,7 +445,7 @@ plt.show()
 model = RandomForestRegressor()
 model.fit(X_weather_train, y_weather_train)
 y_pred = model.predict(X_weather_test)
-print('model score:' ,r2_score(y_weather_test, y_pred, multioutput='variance_weighted'))
+print('Random Forest model score with weather:' ,r2_score(y_weather_test, y_pred, multioutput='variance_weighted'))
 
 
 # In[142]:
@@ -453,8 +453,8 @@ print('model score:' ,r2_score(y_weather_test, y_pred, multioutput='variance_wei
 
 feat_importances = pd.Series(model.feature_importances_, index=plant.iloc[:, 11:25].columns)
 feat_importances.nlargest(10).plot(kind='barh')
-plt.savefig("feature_imp_weather.pdf", format="pdf", bbox_inches="tight")
-plt.show()
+# plt.savefig("feature_imp_weather.pdf", format="pdf", bbox_inches="tight")
+# plt.show()
 
 
 # In[94]:
@@ -472,11 +472,11 @@ plt.show()
 # In[93]:
 
 
-# Model 2 : Random Forest
-model = RandomForestRegressor()
-model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
-print('model score:' ,r2_score(y_test, y_pred, multioutput='variance_weighted'))
+# # Model 2 : Random Forest
+# model = RandomForestRegressor()
+# model.fit(X_train, y_train)
+# y_pred = model.predict(X_test)
+# print('model score:' ,r2_score(y_test, y_pred, multioutput='variance_weighted'))
 
 
 # In[ ]:
@@ -494,7 +494,7 @@ print('model score:' ,r2_score(y_test, y_pred, multioutput='variance_weighted'))
 
 reg = MultiOutputRegressor(GradientBoostingRegressor())
 reg.fit(X_train, y_train)
-reg.score(X_test, y_test)
+print('Gradient Boosting score', reg.score(X_test, y_test))
 
 
 # In[ ]:
